@@ -1,0 +1,21 @@
+$headerBarColor: rgb(20, 80, 90);
+.image {
+
+    background-image: url("../../../background_image.jpg");
+    opacity:0.9;
+    height:35em; background-size:cover; 
+    background-repeat: no-repeat;
+    background-position: center;
+    }
+    
+    h1{text-align: center;}
+    p{
+        margin-left: 20%;
+        padding-top: 20%;
+        color: rgb(7, 7, 7);
+        width: 60%;
+        font-size: 24px;
+        font-weight: bold;
+        text-decoration: none;
+    
+      }
