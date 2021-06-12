@@ -1,0 +1,27 @@
+ <div class="navbar is-black">
+      <div class="navbar-brand">
+        <a class="navbar-item">
+         <img src="assets/img/laesst-cristiano-ronaldo-bald.jpg">
+        </a>
+      </div>
+    </div>
+
+
+
+
+
+
+  <nav class="navbar is-dark">
+
+      <!-- logo -->
+      <div class="navbar-brand">
+        <a class="navbar-item">
+        <img src="assets/img/laesst-cristiano-ronaldo-bald.jpg">
+        <p> hello1 </p>
+        </a>
+      </div>
+    </nav>
+
+
+
+"src/styles.scss"
