@@ -1,0 +1,81 @@
+#FROM node:10
+
+#RUN apt-get update \
+#    && apt-get install -yq --no-install-recommends \
+#    nodejs
+    
+#RUN npm install -g @angular/cli
+#RUN yarn global add @angular/cli@1.2.6
+
+#WORKDIR /app
+
+#RUN npm install    
+#RUN npm install --save-dev  --unsafe-perm node-sass
+#RUN npm cache clean -f
+#RUN npm install -g n
+#RUN n stable
+#RUN npm install --save @angular/material @angular/cdk @angular/animations
+#COPY package.json /app
+#COPY yarn.lock /app
+#RUN yarn install --pure-lockfile
+#COPY . /app
+#RUN ls
+
+#RUN ng build
+#RUN ng serve
+#CMD ng serve --host 0.0.0.0 --disable-host-check --proxy-config proxy.conf.dev.json
+#EXPOSE 4200
+
+# Stage 1
+
+FROM node:12.14-alpine as build-step
+
+#RUN apk add --update -yq --no-install-recommends \
+
+#RUN apt-get update \
+#    && apt-get install -yq --no-install-recommends \
+#    nodejs
+
+
+RUN mkdir -p /app
+
+WORKDIR /app
+
+RUN apk update
+RUN apk add --update nodejs nodejs-npm curl
+RUN apk add --no-cache bash
+#RUN touch ~/.bash_profile
+#RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
+#RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+#RUN nvm --version
+#RUN nvm ls
+#RUN nvm install 12.14
+#RUN npm -v
+RUN node -v
+
+COPY package.json /app
+
+
+RUN npm install -g @angular/cli
+RUN yarn global add @angular/cli@1.2.6
+RUN npm install    
+RUN npm install --save-dev  --unsafe-perm node-sass
+RUN npm cache clean -f
+#RUN npm install -g n
+#RUN n stable
+#RUN ln -s /usr/local/bin/n /usr/local/bin/node
+#RUN n latest
+RUN node -v
+RUN npm install --save @angular/material @angular/cdk @angular/animations
+
+COPY . /app
+
+
+RUN npm run build --prod
+
+
+# Stage 2
+
+FROM nginx:1.17.1-alpine
+
+COPY --from=build-step /app/dist/Energy-predictor /usr/share/nginx/html
